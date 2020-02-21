@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<html>
+<body>
+<form name="f1" id = "f1" method="post">
+  <table style="border:1px solid blue" col align="center" title="Tip Calculator">
+  <tr style="color:white;background-color:#0080ff"><td>Tip Calculator</td></tr> <!-- also tried to use a legend here to get the full row highlighted -->
+
+    <!-- Bill -->
+    <tr><td><label style="font-size:12px;color:gray">Bill</label></td></tr>
+    <tr><td colspan="3"><input type="text" id="txtBill" style="text-align:center;font-size:15px" size=20 value="$52.35" onChange = "getCalculations()"/></td></tr>
+
+    <!-- Tip % -->
+    <tr><td><label style="font-size:12px;color:gray">Tip %</label></td></tr>
+    <tr><td colspan="3"><input type="button" id="btnTip" style="color:black;background:#C8C8C8;border:0;height:25px; width:25px;font-weight:bold" value="-" onClick = "decrTipPercent();getCalculations()"/>
+    <input id="txtTip" type="text" style="text-align:center;font-size:15px" size=14 value="20%" onChange = "getCalculations()"/>
+    <input type="button" id="btnTip" style="color:black;background:#C8C8C8;border:0;height:25px; width:25px;font-weight:bold" value="+" onclick="incrTipPercent();getCalculations()"/></td></tr>
+
+    <!-- Number of People -->
+    <tr><td><label style="font-size:12px;color:gray">Number of People</label></td></tr>
+    <tr><td colspan="3"><input type="button" id="btnMinPeople" style="color:black;background:#C8C8C8;border:0;height:25px; width:25px;font-weight:bold" value="-" onClick = "decrNumPeople();getCalculations()"/>
+    <input id="txtNumPeople" type="text" style="text-align:center;font-size:15px" size=14 value="4" onChange = "getCalculations()">
+    <input type="button" id="btnMaxPeople" style="color:black;background:#C8C8C8;border:0;height:25px; width:25px;font-weight:bold" value="+" onclick="incrNumPeople();getCalculations()"/></td></tr>
+
+    <!-- Tip per person -->
+    <tr><td><label style="font-size:15px;color:black">Tip</label></td></tr>
+    <tr><td><label style="font-size:12px;color:gray">per person</label></td>
+    <td><label id="lblTipPerPerson" size=20></label></td></tr>
+
+    <!-- Total per person % -->
+    <tr><td><label style="font-size:15px;color:black">Total</label></td>
+    <tr><td><label style="font-size:12px;color:gray">per person</label></td>
+    <td><label id="lblTotalPerPerson" size=20></label></td></tr>
+
+    <!-- Full Amount % -->
+    <tr><td><center><label style="font-size:15px;color:black">Full Amount</label></center></td></tr>
+    <tr><td><center> <label id="lblFullAmount" style="font-size:30px;color:black;font-weight:bold"></label></center></td></tr>
+
+    <script language="javascript" type="text/javascript">
+    function getCalculations () {
+    var Bill = document.getElementById('txtBill').value.replace("$","");
+    var Tip = parseFloat(document.f1.txtTip.value).toFixed(2) / 100;
+    var NumPeople = document.f1.txtNumPeople.value;
+    var TipPerPerson = Bill * Tip / NumPeople;
+    var TotalPerPerson = (Bill / NumPeople) + TipPerPerson;
+    var FullAmount = Math.round(TotalPerPerson * 100) / 100 * NumPeople;
+    document.getElementById('lblTipPerPerson').innerHTML = "$" + Math.round(TipPerPerson * 100) / 100;
+    document.getElementById('lblTotalPerPerson').innerHTML = "$" + Math.round(TotalPerPerson * 100) / 100;
+    document.getElementById('lblFullAmount').innerHTML = "$" + FullAmount;
+  }
+
+  function decrTipPercent () {
+    var TipPercent = parseInt(document.getElementById('txtTip').value);
+    TipPercent--;
+    document.getElementById('txtTip').value = TipPercent + "%";
+  }
+
+  function incrTipPercent () {
+    var TipPercent = parseInt(document.getElementById('txtTip').value);
+    TipPercent++;
+    document.getElementById('txtTip').value = TipPercent + "%";
+  }
+
+  function decrNumPeople () {
+    var NumberofPeople = parseInt(document.getElementById('txtNumPeople').value);
+    NumberofPeople--;
+    document.getElementById('txtNumPeople').value = NumberofPeople;
+  }
+
+  function incrNumPeople () {
+    var NumberofPeople = parseInt(document.getElementById('txtNumPeople').value);
+    NumberofPeople++;
+    document.getElementById('txtNumPeople').value = NumberofPeople;
+  }
+
+  </script>
+
+</table>
+</form>
+</body>
+</html>
